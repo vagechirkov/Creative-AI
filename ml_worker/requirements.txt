@@ -1,0 +1,6 @@
+aio-pika
+envparse
+fastapi==0.85.1
+pika
+pydantic
+uvicorn
