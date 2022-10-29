@@ -11,4 +11,16 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
-  
+
+  fastapi:
+    build:
+      context: ./fastapi
+      dockerfile: Dockerfile
+    container_name: creative-ai-fastapi
+    volumes:
+      - ./fastapi:/code
+    ports:
+      - '5000:5000'
+
+volumes:
+  data:
