@@ -18,9 +18,31 @@ services:
       dockerfile: Dockerfile
     container_name: creative-ai-fastapi
     volumes:
-      - ./fastapi:/code
+      - ./fastapi:/fastapi
     ports:
       - '5000:5000'
+    environment:
+      - PUBLISH_TASK_QUEUE=creative-ai-task
+      - CONSUME_RESULT_QUEUE=creative-ai-result
+      - RABBIT_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
+
+  ml-worker:
+    build:
+      context: ./ml_worker
+      dockerfile: Dockerfile
+    container_name: creative-ai-ml-worker
+    volumes:
+      - ./ml_worker:/ml_worker
+    ports:
+      - '5001:5001'
+    environment:
+      - CONSUME_TASK_QUEUE=creative-ai-task
+      - PUBLISH_RESULT_QUEUE=creative-ai-result
+      - RABBIT_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
 
 volumes:
   data:
