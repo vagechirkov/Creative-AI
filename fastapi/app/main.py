@@ -1,15 +1,13 @@
-from typing import Union
-
 from fastapi import FastAPI
 
+from models.MessageSchema import MessageSchema
+from rabbitmq.pika_client import PikaClient
+
 app = FastAPI()
+pika_client = PikaClient()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q, "type": type(q)}
+@app.post('/send-message')
+async def send_message(payload: MessageSchema):
+    pika_client.send_message({"message": payload.message})
+    return {"status": "ok"}
