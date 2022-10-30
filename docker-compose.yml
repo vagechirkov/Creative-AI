@@ -25,6 +25,7 @@ services:
       - PUBLISH_TASK_QUEUE=creative-ai-task
       - CONSUME_RESULT_QUEUE=creative-ai-result
       - RABBIT_HOST=rabbitmq
+      - PORT=5000
     depends_on:
       - rabbitmq
 
@@ -41,6 +42,7 @@ services:
       - CONSUME_TASK_QUEUE=creative-ai-task
       - PUBLISH_RESULT_QUEUE=creative-ai-result
       - RABBIT_HOST=rabbitmq
+      - PORT=5001
     depends_on:
       - rabbitmq
 
