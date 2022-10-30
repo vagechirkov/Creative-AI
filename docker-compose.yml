@@ -21,6 +21,8 @@ services:
       - ./fastapi:/fastapi
     ports:
       - '5000:5000'
+    env_file:
+      - logzio.env
     environment:
       - PUBLISH_TASK_QUEUE=creative-ai-task
       - CONSUME_RESULT_QUEUE=creative-ai-result
@@ -38,6 +40,8 @@ services:
       - ./ml_worker:/ml_worker
     ports:
       - '5001:5001'
+    env_file:
+      - logzio.env
     environment:
       - CONSUME_TASK_QUEUE=creative-ai-task
       - PUBLISH_RESULT_QUEUE=creative-ai-result
