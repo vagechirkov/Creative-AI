@@ -1,4 +1,6 @@
 from celery import current_app as current_celery_app
+from kombu import Queue
+
 import config
 
 
@@ -12,5 +14,6 @@ def create_celery():
         result_serializer='json',
         timezone='Europe/Berlin',
         enable_utc=True,
+        current_task_queues=[Queue("celery"), Queue(config.TASK_QUEUE)],
     )
     return celery_app

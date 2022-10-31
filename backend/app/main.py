@@ -6,7 +6,7 @@ from logging_config import LOGGING
 from routes.generate import generate_router
 
 logging.config.dictConfig(LOGGING)
-logger = logging.getLogger('LogzioLogger')
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
