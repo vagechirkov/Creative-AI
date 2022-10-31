@@ -20,4 +20,4 @@ WORKDIR /usr/src/ml_worker
 
 # Sleep 10 seconds to wait for the RabbitMQ container to be ready
 # SEE also: https://docs.docker.com/compose/startup-order/
-CMD sleep 10 && celery -A celery_worker.tasks worker --loglevel=info
+CMD sleep 10 && celery -A celery_worker.tasks worker --loglevel=info -Q $TASK_QUEUE
