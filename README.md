@@ -73,3 +73,5 @@ pip install -r requirements.txt
 - [Async Architecture with FastAPI, Celery, and RabbitMQ](https://medium.com/cuddle-ai/async-architecture-with-fastapi-celery-and-rabbitmq-c7d029030377)
 - [Asynchronous Tasks with FastAPI and Celery](https://testdriven.io/blog/fastapi-and-celery/)
 - [fastapi - celery - rabbitmq - redis -> Docker](https://github.com/karthikasasanka/fastapi-celery-redis-rabbitmq)
+- [Running Deep Learning Algorithms as a Service](https://towardsdatascience.com/serving-deep-learning-algorithms-as-a-service-6aa610368fde)
+- [FastAPI Celery, Flower and Docker](https://www.youtube.com/watch?v=mcX_4EvYka4)
