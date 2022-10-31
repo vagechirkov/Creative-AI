@@ -1,3 +1,4 @@
+import asyncio
 import logging
 
 from celery.result import AsyncResult
@@ -10,6 +11,17 @@ from celery_worker.tasks import generate_image
 logger = logging.getLogger(__name__)
 
 generate_router = APIRouter()
+
+
+@generate_router.get("/{generate_query}")
+async def get_image(generate_query: str):
+    task = generate_image.apply_async((generate_query,),
+                                      queue=config.TASK_QUEUE)
+    logger.info(f"Task ID: {task.id}")
+    task_result = AsyncResult(task.id)
+    while not task_result.ready():
+        await asyncio.sleep(0.1)
+    return JSONResponse({"task_id": task.id, "task_result": task_result.result})
 
 
 @generate_router.post("/{generate_query}")
