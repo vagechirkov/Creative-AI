@@ -1,0 +1,21 @@
+FROM python:3.9-slim-buster
+
+COPY ./requirements-celery.txt /usr/src/
+
+RUN pip install --upgrade pip
+
+RUN pip install -r /usr/src/requirements-celery.txt
+
+RUN mkdir /usr/src/ml_worker
+
+COPY ./app/celery_worker /usr/src/ml_worker/celery_worker
+
+COPY ./app/__init__.py /usr/src/ml_worker/
+
+COPY ./app/config.py /usr/src/ml_worker/
+
+WORKDIR /usr/src/ml_worker
+
+# Sleep 10 seconds to wait for the RabbitMQ container to be ready
+# SEE also: https://docs.docker.com/compose/startup-order/
+CMD sleep 10 && celery -A celery_worker.tasks worker --loglevel=info

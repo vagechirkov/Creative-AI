@@ -1,7 +1,6 @@
-aio-pika
-envparse
+celery
 fastapi==0.85.1
+httpx
 logzio-python-handler
-pika
 pydantic
 uvicorn

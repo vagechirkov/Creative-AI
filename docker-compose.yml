@@ -14,28 +14,31 @@ services:
 
   fastapi:
     build:
-      context: ./fastapi
-      dockerfile: Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile-fastapi
     container_name: creative-ai-fastapi
     volumes:
-      - ./fastapi:/fastapi
+      - ./backend:/fastapi
     ports:
       - '5000:5000'
     env_file:
       - logzio.env
     environment:
-      - PUBLISH_TASK_QUEUE=creative-ai-task
-      - CONSUME_RESULT_QUEUE=creative-ai-result
-      - RABBIT_HOST=rabbitmq
+#      NOTE: This is only for local development
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_PORT=5672
+      - TASK_QUEUE=generate_image
       - PORT=5000
     depends_on:
       - rabbitmq
 
-  ml-worker:
+  celery-worker:
     build:
-      context: ./ml_worker
-      dockerfile: Dockerfile
-    container_name: creative-ai-ml-worker
+      context: ./backend
+      dockerfile: Dockerfile-celery-worker
+    container_name: creative-ai-celery-worker
     volumes:
       - ./ml_worker:/ml_worker
     ports:
@@ -43,10 +46,28 @@ services:
     env_file:
       - logzio.env
     environment:
-      - CONSUME_TASK_QUEUE=creative-ai-task
-      - PUBLISH_RESULT_QUEUE=creative-ai-result
-      - RABBIT_HOST=rabbitmq
+#      NOTE: This is only for local development
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_PORT=5672
+      - TASK_QUEUE=generate_image
       - PORT=5001
+    depends_on:
+      - rabbitmq
+
+  celery-flower:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-celery-flower
+    container_name: creative-ai-celery-flower
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_PORT=5672
+    ports:
+        - '5555:5555'
     depends_on:
       - rabbitmq
 

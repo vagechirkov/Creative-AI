@@ -1,4 +1,4 @@
-from envparse import env
+import config
 
 LOGGING = {
     'version': 1,
@@ -14,10 +14,10 @@ LOGGING = {
             'class': 'logzio.handler.LogzioHandler',
             'level': 'INFO',
             'formatter': 'logzioFormat',
-            'token': f'{env("LOGZIO_TOKEN")}',
+            'token': f'{config.LOGZIO_TOKEN}',
             'logzio_type': 'python-handler',
             'logs_drain_timeout': 5,
-            'url': f'https://{env("LOGZIO_URL")}:8071',
+            'url': f'https://{config.LOGZIO_URL}:8071',
             'retries_no': 4,
             'retry_timeout': 2,
         }
