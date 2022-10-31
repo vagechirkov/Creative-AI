@@ -9,7 +9,7 @@ import logging.config
 def configure_logger(**kwargs):
     try:
         logging.config.dictConfig(LOGGING)
-        logger = logging.getLogger('LogzioLogger')
+        logger = logging.getLogger(__name__)
         logger.info('Starting up Celery')
         return logger
 
@@ -21,6 +21,6 @@ celery_app = create_celery()
 
 
 @celery_app.task
-def generate_image(prompt: str):
-    sleep(5)
+def generate_image(prompt: str, sleep_time: int = 5):
+    sleep(sleep_time)
     return prompt[::-1]
