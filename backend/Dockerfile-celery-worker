@@ -14,6 +14,8 @@ COPY ./app/__init__.py /usr/src/ml_worker/
 
 COPY ./app/config.py /usr/src/ml_worker/
 
+COPY app/logging_config.py /usr/src/ml_worker/
+
 WORKDIR /usr/src/ml_worker
 
 # Sleep 10 seconds to wait for the RabbitMQ container to be ready
