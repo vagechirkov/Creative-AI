@@ -14,15 +14,6 @@ First you need to set up three dotenv files:
     REDIS_CELERY_DB_INDEX=10
     REDIS_STORE_DB_INDEX=0
 
-`rabbitmq.env`:
-
-    RABBITMQ_DEFAULT_USER=guest
-    RABBITMQ_DEFAULT_PASS=guest
-    RABBITMQ_HOST=rabbitmq
-    RABBITMQ_USERNAME=guest
-    RABBITMQ_PASSWORD=guest
-    RABBITMQ_PORT=5672
-
 `logzio.env`:
 
     LOGZIO_TOKEN=YOUR_LOGZIO_TOKEN
@@ -40,7 +31,6 @@ To start the project, run:
 
 After starting the docker-compose, you can access the following services HTTP endpoints:
 
-- `rabbitmq`: [http://localhost:15672](http://localhost:15672) (guest/guest)
 - `fastapi` Frontend: [http://localhost:5000/](http://localhost:5000/)
 - `fastapi` Swagger UI: [http://localhost:5000/docs](http://localhost:5000/docs)
 - `celery.flower` Celery flower dashboard: [http://localhost:5555/dashboard](http://localhost:5555/dashboard)
