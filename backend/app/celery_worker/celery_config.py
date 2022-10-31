@@ -8,7 +8,7 @@ def create_celery():
     celery_app = current_celery_app
     celery_app.conf.update(
         broker_url=config.BROKER_CONN_URI,
-        # result_backend=config.BACKEND_CONN_URI,
+        result_backend=config.BACKEND_CONN_URI,
         task_serializer='json',
         accept_content=['json'],  # Ignore other content
         result_serializer='json',

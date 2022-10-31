@@ -1,3 +1,4 @@
 celery
 flower
 logzio-python-handler
+redis
