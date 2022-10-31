@@ -48,7 +48,7 @@ After starting the docker-compose, you can access the following services HTTP en
 
 Now if you open frontend in your browser, you should see the following page:
 
-![Frontend](/Users/chirkov/Creative-AI-draft/docs/frontend.png)
+![Frontend](docs/frontend.png)
 
 
 ### Local development Python environment
