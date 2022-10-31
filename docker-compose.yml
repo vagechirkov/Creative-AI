@@ -24,11 +24,11 @@ services:
     depends_on:
       - redis
 
-  celery-worker:
+  celery-worker-1:
     build:
       context: ./backend
       dockerfile: Dockerfile-celery-worker
-    container_name: creative-ai-celery-worker
+    container_name: creative-ai-celery-worker-1
     volumes:
       - ./backend/app:/ml_worker
     ports:
@@ -39,6 +39,24 @@ services:
     environment:
       - TASK_QUEUE=generate_image
       - PORT=5001
+    depends_on:
+      - redis
+
+  celery-worker-2:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-celery-worker
+    container_name: creative-ai-celery-worker-2
+    volumes:
+      - ./backend/app:/ml_worker
+    ports:
+      - '5002:5002'
+    env_file:
+      - logzio.env
+      - redis.env
+    environment:
+      - TASK_QUEUE=generate_image
+      - PORT=5002
     depends_on:
       - redis
 
