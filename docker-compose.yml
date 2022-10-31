@@ -8,9 +8,8 @@ services:
       - "5672:5672"
       # HTTP management UI
       - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
+    env_file:
+      - rabbitmq.env
 
   redis:
     image: redis:latest
@@ -29,16 +28,9 @@ services:
       - '5000:5000'
     env_file:
       - logzio.env
+      - redis.env
+      - rabbitmq.env
     environment:
-#      NOTE: This is only for local development
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_CELERY_DB_INDEX=10
-      - REDIS_STORE_DB_INDEX=0
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=guest
-      - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_PORT=5672
       - TASK_QUEUE=generate_image
       - PORT=5000
     depends_on:
@@ -56,16 +48,9 @@ services:
       - '5001:5001'
     env_file:
       - logzio.env
+      - redis.env
+      - rabbitmq.env
     environment:
-#      NOTE: This is only for local development
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_CELERY_DB_INDEX=10
-      - REDIS_STORE_DB_INDEX=0
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=guest
-      - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_PORT=5672
       - TASK_QUEUE=generate_image
       - PORT=5001
     depends_on:
@@ -79,15 +64,9 @@ services:
     container_name: creative-ai-celery-flower
     volumes:
       - ./backend/app:/flower
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_CELERY_DB_INDEX=10
-      - REDIS_STORE_DB_INDEX=0
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=guest
-      - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_PORT=5672
+    env_file:
+      - redis.env
+      - rabbitmq.env
     ports:
         - '5555:5555'
     depends_on:
