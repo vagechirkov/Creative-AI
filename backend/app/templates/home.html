@@ -8,12 +8,15 @@
     <br>
     <div>
         <h3>Tasks</h3>
-        <p>Pick a task length.</p>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary"
-                    onclick="handleClick('test')">
-                Creat test task
-            </button>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button"
+                        onclick="handleClick()">
+                    Submit task
+                </button>
+            </div>
+            <input type="text" class="form-control" placeholder="default" aria-label=""
+                   aria-describedby="basic-addon1" id="promptText">
         </div>
     </div>
     <br><br>
@@ -25,7 +28,7 @@
             <tr>
                 <th>ID</th>
                 <th>Status</th>
-                <th>Result</th>
+                <th>Result (reversed text)</th>
             </tr>
             </thead>
             <tbody id="tasks">

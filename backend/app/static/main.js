@@ -1,10 +1,6 @@
-// custom javascript
+function handleClick() {
+  const text = document.getElementById('promptText').value || 'default';
 
-(function() {
-  console.log('Sanity Check!');
-})();
-
-function handleClick(text) {
   fetch(`/generate/${text}`, {
     method: 'POST',
     headers: {
