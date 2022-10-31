@@ -65,3 +65,4 @@ pip install -r requirements.txt
 - [fastapi - celery - rabbitmq - redis -> Docker](https://github.com/karthikasasanka/fastapi-celery-redis-rabbitmq)
 - [Running Deep Learning Algorithms as a Service](https://towardsdatascience.com/serving-deep-learning-algorithms-as-a-service-6aa610368fde)
 - [FastAPI Celery, Flower and Docker](https://www.youtube.com/watch?v=mcX_4EvYka4)
+- [Celery Distributed Task Queue with FastAPI for Machine Learning](https://github.com/katanaml/sample-apps/tree/master/11)
