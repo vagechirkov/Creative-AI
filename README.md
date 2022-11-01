@@ -57,6 +57,22 @@ pip install -r requirements.txt
 
 ```
 
+## Push worker to Docker Hub
+
+```bash
+
+docker login --username vagechirkov
+
+cd backend
+
+docker build --platform linux/amd64 -t creative-ai-worker -f Dockerfile-celery-worker .
+
+docker tag creative-ai-worker vagechirkov/creative-ai-worker
+
+docker push vagechirkov/creative-ai-worker:latest
+
+```
+
 ## Useful links and resources
 
 - [Celery configuration and defaults](https://docs.celeryq.dev/en/stable/userguide/configuration.html)
