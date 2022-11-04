@@ -23,4 +23,4 @@ jobs:
     - name: Build the Docker image
       run: cd backend && docker build . --file Dockerfile-celery-worker --tag  ${{secrets.DOCKER_USER}}/creative-ai-worker:latest
     - name: Push Docker image to DockerHub
-      run: docker push ${{secrets.DOCKER_USER}}/reative-ai-worker:latest
+      run: docker push ${{secrets.DOCKER_USER}}/creative-ai-worker:latest
