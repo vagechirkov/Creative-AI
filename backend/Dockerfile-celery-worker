@@ -19,4 +19,4 @@ COPY ./app/config.py ./
 
 COPY ./app/logging_config.py ./
 
-CMD ls -la && pwd && python3 --version && celery -A celery_worker.tasks worker --loglevel=info -Q $TASK_QUEUE
+CMD cd / && python3 --version && celery -A celery_worker.tasks worker --loglevel=info -Q $TASK_QUEUE
