@@ -57,7 +57,9 @@ pip install -r requirements.txt
 
 ```
 
-## Push worker to Docker Hub
+## Manually push worker to Docker Hub
+
+NOTE: this is done automatically by GitHub Actions workflow (see [here](.github/workflows/docker-celery-worker.yml)).
 
 ```bash
 
