@@ -1,0 +1,20 @@
+variables:
+  DEPLOYMENT_VARS: "MONGO_URL"
+  APP_NAME: creative-ai-fastapi
+
+include:
+  - project: "mpib/chm/common/deploy-pipeline"
+    ref: "1.5.1"
+    file: "python-app.yml"
+
+init:
+  extends: .init-stage
+  after_script:
+    - echo "Copying files from subdirectory to root directory"
+    - cp -r backend/* ./
+    #  rename the relevant Dockerfile
+    - mv Dockerfile-fastapi Dockerfile
+    - rm -rf backend
+  artifacts:
+    paths:
+      - ./
