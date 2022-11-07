@@ -1,4 +1,5 @@
 variables:
+  DEPLOYMENT_VARS: "MREDIS_HOST, REDIS_PORT, REDIS_CELERY_DB_INDEX, TASK_QUEUE"
   APP_NAME: creative-ai-flower
 
 include:
