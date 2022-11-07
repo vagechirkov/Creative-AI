@@ -1,5 +1,8 @@
 # Creative AI
 
+## Deployment
+
+Frontend URL:  [https://creative-ai-fastapi.eks-test-default.mpg-chm.com](https://creative-ai-fastapi.eks-test-default.mpg-chm.com)
 
 ## Local development
 
