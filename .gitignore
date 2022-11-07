@@ -751,3 +751,9 @@ cython_debug/
 #JetBrains
 .idea
 redis.env
+
+# ignore the script to run celery on the cluster
+run-worker-on-the-cluster.sh
+
+# ignore logzio failure
+logzio-failure*
