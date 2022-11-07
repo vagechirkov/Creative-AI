@@ -18,8 +18,8 @@ COPY app/logging_config.py /usr/src/flower/
 
 WORKDIR /usr/src/flower
 
-# Sleep 10 seconds to wait for the RabbitMQ container to be ready
-# SEE also: https://docs.docker.com/compose/startup-order/
-# CMD sleep 10 && celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX}
+CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX} --port=${PORT}
 
-CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX}
+
+#FROM mher/flower:0.9.7
+#CMD flower -e CELERY_BROKER_URL=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX}

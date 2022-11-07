@@ -69,6 +69,7 @@ services:
       - ./backend/app:/flower
     env_file:
       - redis.env
+      - PORT=5555
     ports:
         - '5555:5555'
 #    depends_on:
