@@ -18,7 +18,7 @@ COPY app/logging_config.py /usr/src/flower/
 
 WORKDIR /usr/src/flower
 
-CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX}  --address=${ADDRESS} --port=${PORT} --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
+CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX}  --port=${PORT} --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
 
 
 #FROM mher/flower:0.9.7
