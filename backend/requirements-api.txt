@@ -1,8 +1,9 @@
+Jinja2
 celery
 fastapi==0.85.1
-Jinja2
 httpx
 logzio-python-handler
 pydantic
 redis
+starlette-exporter
 uvicorn
