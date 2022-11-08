@@ -4,7 +4,7 @@ COPY ./requirements-celery.txt ./
 
 RUN pip install --upgrade pip
 
-RUN pip install -r /usr/src/requirements-celery.txt
+RUN pip install -r requirements-celery.txt
 
 COPY ./app/celery_worker ./celery_worker
 
