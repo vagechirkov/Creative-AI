@@ -7,8 +7,8 @@ fastapi:
     include: .gitlab-ci-fastapi.yml
     strategy: depend
 
-flower:
-  stage: start child pipelines
-  trigger:
-    include: .gitlab-ci-flower.yml
-    strategy: depend
+#flower:
+#  stage: start child pipelines
+#  trigger:
+#    include: .gitlab-ci-flower.yml
+#    strategy: depend
