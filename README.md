@@ -2,7 +2,10 @@
 
 ## Deployment
 
-Frontend URL:  [https://creative-ai-fastapi.eks-test-default.mpg-chm.com](https://creative-ai-fastapi.eks-test-default.mpg-chm.com)
+- Frontend URL:  [https://creative-ai-fastapi.eks-test-default.mpg-chm.com](https://creative-ai-fastapi.eks-test-default.mpg-chm.com)
+- Flower URL:  [https://creative-ai-flower.eks-test-default.mpg-chm.com](https://creative-ai-flower.eks-test-default.mpg-chm.com/)
+
+⚠️NOTE: You need the worker running to test a task.
 
 ## Local development
 
