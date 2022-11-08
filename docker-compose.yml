@@ -1,5 +1,6 @@
 version: "3"
 services:
+# no need to run redis locally since we are using the cloud service
 #  redis:
 #    image: redis:latest
 #    container_name: redis
@@ -60,21 +61,22 @@ services:
 #    depends_on:
 #      - redis
 
-  celery-flower:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile-celery-flower
-    container_name: creative-ai-celery-flower
-    volumes:
-      - ./backend/app:/flower
-    env_file:
-      - redis.env
-    environment:
-      - PORT=5555
-      - FLOWER_USER=flower
-      - FLOWER_PASSWORD=flower
-    ports:
-        - '5555:5555'
+# No need for flower to run locally since we have the dashboard on the cluster
+#  celery-flower:
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile-celery-flower
+#    container_name: creative-ai-celery-flower
+#    volumes:
+#      - ./backend/app:/flower
+#    env_file:
+#      - redis.env
+#    environment:
+#      - PORT=5555
+#      - FLOWER_USER=flower
+#      - FLOWER_PASSWORD=flower
+#    ports:
+#        - '5555:5555'
 #    depends_on:
 #      - redis
 

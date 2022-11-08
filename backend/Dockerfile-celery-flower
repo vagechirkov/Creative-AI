@@ -14,4 +14,4 @@ COPY ./app/config.py ./
 
 COPY app/logging_config.py ./
 
-CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX} --port=${PORT} --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
+CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX} --port=${PORT} --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD} -Q ${TASK_QUEUE}

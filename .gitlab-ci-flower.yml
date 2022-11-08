@@ -1,5 +1,5 @@
 variables:
-  DEPLOYMENT_VARS: "MONGO_URL, REDIS_HOST, REDIS_PORT, REDIS_CELERY_DB_INDEX, TASK_QUEUE, LOGZIO_TOKEN, LOGZIO_URL, PORT, FLOWER_USER, FLOWER_PASSWORD"
+  DEPLOYMENT_VARS: "REDIS_HOST, REDIS_PORT, REDIS_CELERY_DB_INDEX, TASK_QUEUE, LOGZIO_TOKEN, LOGZIO_URL, PORT, FLOWER_USER, FLOWER_PASSWORD"
   APP_NAME: creative-ai-flower
   PORT: 5000
 
@@ -16,7 +16,6 @@ init:
     #  rename the relevant Dockerfile
     - mv Dockerfile-celery-flower Dockerfile
     - echo "PORT=${PORT}" >>build.env
-    - echo "ADDRESS=${ADDRESS}" >>build.env
     - rm -rf backend
   artifacts:
     paths:
