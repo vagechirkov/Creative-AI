@@ -1,7 +1,8 @@
 variables:
-  DEPLOYMENT_VARS: "MONGO_URL, REDIS_HOST, REDIS_PORT, REDIS_CELERY_DB_INDEX, TASK_QUEUE, LOGZIO_TOKEN, LOGZIO_URL, PORT"
+  DEPLOYMENT_VARS: "MONGO_URL, REDIS_HOST, REDIS_PORT, REDIS_CELERY_DB_INDEX, TASK_QUEUE, LOGZIO_TOKEN, LOGZIO_URL, ADDRESS, PORT"
   APP_NAME: creative-ai-flower
   PORT: 80
+  ADDRESS: creative-ai-flower.eks-test-default.mpg-chm.com
 
 include:
   - project: "mpib/chm/common/deploy-pipeline"
@@ -16,6 +17,7 @@ init:
     #  rename the relevant Dockerfile
     - mv Dockerfile-celery-flower Dockerfile
     - echo "PORT=${PORT}" >>build.env
+    - echo "ADDRESS=${ADDRESS}" >>build.env
     - rm -rf backend
   artifacts:
     paths:
