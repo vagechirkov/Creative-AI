@@ -1,5 +1,12 @@
 FROM python:3.9-slim-buster
 
+COPY ./install-nginx.sh /
+
+RUN bash /install-nginx.sh
+
+# Remove default configuration from Nginx
+RUN rm /etc/nginx/conf.d/default.conf
+
 COPY ./requirements-celery.txt ./
 
 RUN pip install --upgrade pip
@@ -15,5 +22,7 @@ COPY ./app/config.py ./
 COPY app/logging_config.py ./
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
 
 CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX} --port=${PORT} --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
