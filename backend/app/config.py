@@ -10,6 +10,12 @@ BACKEND_CONN_URI = f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_CELERY_DB_INDEX}"
 
 TASK_QUEUE = os.environ.get('TASK_QUEUE', 'generate_image')
 
+# S3
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# sqs://aws_access_key_id:aws_secret_access_key@
+BACKEND_S3_CONN_URI = f"sqs://{AWS_ACCESS_KEY_ID}:{AWS_SECRET_ACCESS_KEY}@"
+
 # Logs
 LOGZIO_URL = os.environ.get('LOGZIO_URL')
 LOGZIO_TOKEN = os.environ.get('LOGZIO_TOKEN')
