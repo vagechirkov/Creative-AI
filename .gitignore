@@ -751,6 +751,7 @@ cython_debug/
 #JetBrains
 .idea
 redis.env
+s3.env
 
 # ignore the script to run celery on the cluster
 run-worker-on-the-cluster.sh
