@@ -1,6 +1,7 @@
 from time import sleep
 from celery.signals import setup_logging
 from .celery_config import create_celery
+from .ml_model import MLModel
 from logging_config import LOGGING
 import logging.config
 
@@ -18,9 +19,12 @@ def configure_logger(**kwargs):
 
 
 celery_app = create_celery()
+model = MLModel()
 
 
 @celery_app.task
 def generate_image(prompt: str, sleep_time: int = 5):
     sleep(sleep_time)
-    return prompt[::-1]
+    image = model.generate(prompt)
+    image.save('image.png')
+    return 'image.png'

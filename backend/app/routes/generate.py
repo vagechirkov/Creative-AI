@@ -15,7 +15,7 @@ generate_router = APIRouter()
 
 @generate_router.get("/{user_id}/{generate_query}")
 async def get_image(user_id: str, generate_query: str):
-    task = generate_image.apply_async((generate_query, 10),
+    task = generate_image.apply_async((generate_query, 5),
                                       queue=config.TASK_QUEUE)
     logger.info(f"Task ID: {task.id}")
     result = await get_task_result(task.id)
