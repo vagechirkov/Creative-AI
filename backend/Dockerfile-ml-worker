@@ -5,6 +5,13 @@ ENV VIRTUAL_ENV=/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
+# intall git in Docker
+# SEE: https://github.com/NVIDIA/nvidia-docker/issues/1632#issuecomment-1112667716
+RUN rm /etc/apt/sources.list.d/cuda.list
+RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+
+RUN apt-get update
+RUN apt-get install -y git
 
 # Celery worker
 COPY ./requirements-celery.txt ./
@@ -21,19 +28,15 @@ COPY ./app/config.py ./
 
 COPY ./app/logging_config.py ./
 
+# remove the mock ml model
+RUN rm -rf ./celery_worker/stable_diffusion.py
 
-# Stable diffusion model
-# intall git in Docker
-
-RUN apt update -y
-RUN apt install -y git
-
+# Clone stable diffusion model
 RUN git clone https://github.com/bramantyois/sd_art.git
 
 # copy the model to the worker folder
 RUN cp -r sd_art/src/models/ ./celery_worker
 
-# CMD python -c import torch; print(torch.cuda.is_available())
-
 # Run the worker
-# CMD cd / && python3 --version && celery -A celery_worker.tasks worker -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE
+# CMD python -c import torch; print(torch.cuda.is_available())
+CMD cd / && python3 --version && celery -A celery_worker.tasks worker -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE

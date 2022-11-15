@@ -2,7 +2,7 @@ from io import BytesIO
 from time import sleep
 from celery.signals import setup_logging
 from .celery_config import create_celery
-from .ml_model import MLModel
+from .stable_diffusion import StableDiffusion
 from logging_config import LOGGING
 import logging.config
 
@@ -22,7 +22,7 @@ def configure_logger(**kwargs):
 
 
 celery_app = create_celery()
-model = MLModel()
+model = StableDiffusion()
 
 
 @celery_app.task

@@ -3,7 +3,7 @@ import random
 from PIL import Image
 
 
-class MLModel:
+class StableDiffusion:
     def __init__(self):
         # download weights if not available
         # load models
