@@ -33,6 +33,7 @@ def generate_image(prompt: str, sleep_time: int = 5):
     # image.save(file_name)
     temp_file = BytesIO()
     image.save(temp_file, format="png")
+    temp_file.seek(0)
     url = upload_file(temp_file)
 
     if url:

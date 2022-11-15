@@ -22,12 +22,10 @@ def upload_file(file):
     file_name = f'{str(uuid.uuid4())}.png'
 
     try:
-        bucket.upload_fileobj(
-            file,
-            file_name,
-            ExtraArgs={
-                'ACL': 'public-read'
-            }
+        bucket.put_object(
+            Body=file,
+            Key=file_name,
+            ACL='public-read'
         )
         url = f'https://{config.S3_BUCKET_NAME}.s3.amazonaws.com/{file_name}'
         return url
