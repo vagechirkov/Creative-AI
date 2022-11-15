@@ -1,8 +1,11 @@
+import logging
 import uuid
 
 import boto3
 
 import config
+
+logger = logging.getLogger(__name__)
 
 
 def upload_file(file):
@@ -19,14 +22,18 @@ def upload_file(file):
     file_name = f'{str(uuid.uuid4())}.png'
 
     try:
-        bucket.upload_fileobj(file, file_name,
-                              ExtraArgs={
-                                  'ACL': 'public-read'
-                              })
+        bucket.upload_fileobj(
+            file,
+            file_name,
+            ExtraArgs={
+                'ACL': 'public-read'
+            }
+        )
         url = f'https://{config.S3_BUCKET_NAME}.s3.amazonaws.com/{file_name}'
         return url
     except Exception as e:
-        print(e)
+        # log the error
+        logger.error(e, exc_info=True)
         return False
 
 

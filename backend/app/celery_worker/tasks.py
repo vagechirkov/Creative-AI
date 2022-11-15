@@ -1,4 +1,4 @@
-import uuid
+from io import BytesIO
 from time import sleep
 from celery.signals import setup_logging
 from .celery_config import create_celery
@@ -31,7 +31,10 @@ def generate_image(prompt: str, sleep_time: int = 5):
     image = model.generate(prompt)
 
     # image.save(file_name)
-    url = upload_file(image)
+    temp_file = BytesIO()
+    image.save(temp_file, format="png")
+    url = upload_file(temp_file)
+
     if url:
         return url
     else:
