@@ -11,10 +11,10 @@ BACKEND_CONN_URI = f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_CELERY_DB_INDEX}"
 TASK_QUEUE = os.environ.get('TASK_QUEUE', 'generate_image')
 
 # S3
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+S3_ACCESS_KEY_ID = os.environ.get('S3_ACCESS_KEY_ID')
+S3_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_ACCESS_KEY')
 S3_ROLE_ARN = os.environ.get('S3_ROLE_ARN')
-BUCKET_NAME = os.environ.get('BUCKET_NAME', 'creativeai-20221111143400')
+S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME', 'creativeai-20221111143400')
 
 # Logs
 LOGZIO_URL = os.environ.get('LOGZIO_URL')
