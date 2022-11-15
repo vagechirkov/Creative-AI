@@ -21,6 +21,6 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker image
-      run: cd backend && docker build . --file Dockerfile-ml-worker --tag  ${{secrets.DOCKER_USER}}/creative-ai-worker:latest
+      run: cd backend && docker build . --file Dockerfile-celery-worker --tag  ${{secrets.DOCKER_USER}}/creative-ai-worker:latest
     - name: Push Docker image to DockerHub
       run: docker push ${{secrets.DOCKER_USER}}/creative-ai-worker:latest
