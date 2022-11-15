@@ -7,24 +7,22 @@ services:
 #    ports:
 #      - "6379:6379"
 
-  fastapi:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile-fastapi
-    container_name: creative-ai-fastapi
-    volumes:
-      - ./backend:/fastapi
-    ports:
-      - '5000:5000'
-    env_file:
-      - logzio.env
-      - redis.env
-      - s3.env
-    environment:
-      - TASK_QUEUE=generate_image
-      - PORT=5000
-#    depends_on:
-#      - redis
+#  fastapi:
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile-fastapi
+#    container_name: creative-ai-fastapi
+#    volumes:
+#      - ./backend:/fastapi
+#    ports:
+#      - '5000:5000'
+#    env_file:
+#      - logzio.env
+#      - redis.env
+#      - s3.env
+#    environment:
+#      - TASK_QUEUE=generate_image
+#      - PORT=5000
 
   celery-worker-1:
     build:
@@ -32,7 +30,7 @@ services:
       dockerfile: Dockerfile-celery-worker
     container_name: creative-ai-celery-worker-1
     volumes:
-      - ./backend/app:/ml_worker
+      - ./backend/app/celery_worker:/celery_worker
     ports:
       - '5001:5001'
     env_file:
@@ -42,8 +40,6 @@ services:
     environment:
       - TASK_QUEUE=generate_image
       - PORT=5001
-#    depends_on:
-#      - redis
 
 #  celery-worker-2:
 #    build:
@@ -65,23 +61,21 @@ services:
 #      - redis
 
 # No need for flower to run locally since we have the dashboard on the cluster
-  celery-flower:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile-celery-flower
-    container_name: creative-ai-celery-flower
-    volumes:
-      - ./backend/app:/flower
-    env_file:
-      - redis.env
-    environment:
-      - PORT=5555
-      - FLOWER_USER=flower
-      - FLOWER_PASSWORD=flower
-    ports:
-        - '5555:5555'
-#    depends_on:
-#      - redis
+#  celery-flower:
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile-celery-flower
+#    container_name: creative-ai-celery-flower
+#    volumes:
+#      - ./backend/app:/flower
+#    env_file:
+#      - redis.env
+#    environment:•
+#      - PORT=5555
+#      - FLOWER_USER=flower
+#      - FLOWER_PASSWORD=flower
+#    ports:
+#        - '5555:5555'
 
 volumes:
   data:
