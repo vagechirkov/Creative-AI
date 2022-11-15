@@ -1,3 +1,5 @@
+import random
+
 from PIL import Image
 
 
@@ -15,9 +17,15 @@ class MLModel:
 
         for x in range(img.size[0]):
             for y in range(img.size[1]):
-                data[x, y] = (
-                    x % 255,
-                    y % 255,
-                    (x ** 2 - y ** 2) % 255,
-                )
+                random_color = (random.randint(0, 255),
+                                random.randint(0, 255),
+                                random.randint(0, 255))
+                if random.randint(0, 1):
+                    data[x, y] = random_color
+                else:
+                    data[x, y] = (
+                        x % 255,
+                        y % 255,
+                        (x ** 2 - y ** 2) % 255,
+                    )
         return img
