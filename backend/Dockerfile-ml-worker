@@ -25,14 +25,15 @@ COPY ./app/logging_config.py ./
 # Stable diffusion model
 # intall git in Docker
 
-# RUN apt-get update && apt-get install -y git
+RUN apt update -y
+RUN apt install -y git
 
-# RUN git clone https://github.com/bramantyois/sd_art.git
+RUN git clone https://github.com/bramantyois/sd_art.git
 
 # copy the model to the worker folder
-# RUN cp -r sd_art/src/models/ ./celery_worker
+RUN cp -r sd_art/src/models/ ./celery_worker
 
-CMD python -c import torch; print(torch.cuda.is_available())
+# CMD python -c import torch; print(torch.cuda.is_available())
 
 # Run the worker
-# CMD cd / && python3 --version && celery -A celery_worker.tasks worker --loglevel=info -Q $TASK_QUEUE
+# CMD cd / && python3 --version && celery -A celery_worker.tasks worker -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE
