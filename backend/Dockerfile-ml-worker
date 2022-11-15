@@ -1,0 +1,35 @@
+FROM pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
+
+# Create a virtual environment
+ENV VIRTUAL_ENV=/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+
+# Celery worker
+COPY ./requirements-celery.txt ./
+
+RUN pip install --upgrade pip
+
+RUN pip install -r requirements-celery.txt
+
+COPY ./app/celery_worker celery_worker
+
+COPY ./app/__init__.py ./
+
+COPY ./app/config.py ./
+
+COPY ./app/logging_config.py ./
+
+
+# Stable diffusion model
+# intall git in Docker
+# RUN apt-get update && apt-get install -y git
+
+# RUN git clone
+
+
+CMD python -c import torch; print(torch.cuda.is_available())
+
+# Run the worker
+# CMD cd / && python3 --version && celery -A celery_worker.tasks worker --loglevel=info -Q $TASK_QUEUE
