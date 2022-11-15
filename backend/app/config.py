@@ -13,8 +13,8 @@ TASK_QUEUE = os.environ.get('TASK_QUEUE', 'generate_image')
 # S3
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-# sqs://aws_access_key_id:aws_secret_access_key@
-BACKEND_S3_CONN_URI = f"sqs://{AWS_ACCESS_KEY_ID}:{AWS_SECRET_ACCESS_KEY}@"
+S3_ROLE_ARN = os.environ.get('S3_ROLE_ARN')
+BUCKET_NAME = os.environ.get('BUCKET_NAME', 'creativeai-20221111143400')
 
 # Logs
 LOGZIO_URL = os.environ.get('LOGZIO_URL')

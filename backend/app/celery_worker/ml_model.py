@@ -20,6 +20,4 @@ class MLModel:
                     y % 255,
                     (x ** 2 - y ** 2) % 255,
                 )
-
-        img.save('image.png')
-        return img  # list of PIL images
+        return img
