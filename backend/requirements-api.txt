@@ -1,4 +1,6 @@
 Jinja2
+Pillow
+boto3
 celery
 fastapi==0.85.1
 httpx
