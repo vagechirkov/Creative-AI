@@ -29,10 +29,9 @@ model = MLModel()
 def generate_image(prompt: str, sleep_time: int = 5):
     sleep(sleep_time)
     image = model.generate(prompt)
-    # random unique name for the image
-    file_name = f'{ str(uuid.uuid4())}.png'
-    image.save(file_name)
-    url = upload_file(file_name)
+
+    # image.save(file_name)
+    url = upload_file(image)
     if url:
         return url
     else:

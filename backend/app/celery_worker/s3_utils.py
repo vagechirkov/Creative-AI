@@ -1,31 +1,29 @@
+import uuid
+
 import boto3
 
 import config
 
 
-def upload_file(file_name, object_name=None):
+def upload_file(file):
     """Upload a file to an S3 bucket
 
-    :param file_name: File to upload
-    :param bucket_name: Bucket to upload to
-    :return: True if file was uploaded, else False
+    :param file: File to upload
     """
-
-    # If S3 object_name was not specified, use file_name
-    if object_name is None:
-        object_name = file_name
 
     s3 = get_s3_resource()
 
     # check if bucket exists
     bucket = get_bucket(config.S3_BUCKET_NAME, s3)
 
+    file_name = f'{str(uuid.uuid4())}.png'
+
     try:
-        bucket.upload_file(file_name, object_name,
-                           ExtraArgs={
-                               'ACL': 'public-read'
-                           })
-        url = f'https://{config.S3_BUCKET_NAME}.s3.amazonaws.com/{object_name}'
+        bucket.upload_fileobj(file, file_name,
+                              ExtraArgs={
+                                  'ACL': 'public-read'
+                              })
+        url = f'https://{config.S3_BUCKET_NAME}.s3.amazonaws.com/{file_name}'
         return url
     except Exception as e:
         print(e)
