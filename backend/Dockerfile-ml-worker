@@ -39,4 +39,4 @@ RUN cp -r sd_art/src/models/ ./celery_worker
 
 # Run the worker
 # CMD python -c import torch; print(torch.cuda.is_available())
-CMD cd / && python3 --version && celery -A celery_worker.tasks worker -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE
+CMD cd / && python3 --version && python -c "import torch; print(torch.cuda.is_available())" && celery -A celery_worker.tasks worker -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE
