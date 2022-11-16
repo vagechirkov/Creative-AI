@@ -1,10 +1,5 @@
 FROM pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
-# Create a virtual environment
-ENV VIRTUAL_ENV=/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
 # intall git in Docker
 # SEE: https://github.com/NVIDIA/nvidia-docker/issues/1632#issuecomment-1112667716
 RUN rm /etc/apt/sources.list.d/cuda.list
@@ -36,12 +31,12 @@ RUN rm -rf ./celery_worker/style_diffusion.py
 # Clone stable diffusion model
 RUN git clone https://github.com/bramantyois/sd_art.git
 
-# copy the model to the worker folder
-RUN cp -r sd_art/src/models/ ./celery_worker
 
-RUN ls
-RUN ls
-RUN ls celery_worker
+# RUN pip install -r sd_art/requirement.txt
+RUN pip install diffusers==0.3.0 transformers tqdm
+
+# copy the model to the worker folder
+RUN cp -r sd_art/src/models/style_diffusion.py ./celery_worker
 
 # Run the worker
 # CMD python -c import torch; print(torch.cuda.is_available())
