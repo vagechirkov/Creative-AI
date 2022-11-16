@@ -20,6 +20,8 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements-celery.txt
 
+WORKDIR /app
+
 COPY ./app/celery_worker celery_worker
 
 COPY ./app/__init__.py ./
@@ -37,6 +39,10 @@ RUN git clone https://github.com/bramantyois/sd_art.git
 # copy the model to the worker folder
 RUN cp -r sd_art/src/models/ ./celery_worker
 
+RUN ls
+RUN ls
+RUN ls celery_worker
+
 # Run the worker
 # CMD python -c import torch; print(torch.cuda.is_available())
-CMD cd / && python3 --version && celery -A celery_worker.tasks worker --loglevel=info -Q $TASK_QUEUE
+CMD cd /app && python3 --version && celery -A celery_worker.tasks worker --loglevel=info -Q $TASK_QUEUE
