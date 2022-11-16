@@ -1,7 +1,7 @@
 Jinja2
 Pillow
 boto3
-celery
+celery==5.2.7
 fastapi==0.85.1
 httpx
 logzio-python-handler
