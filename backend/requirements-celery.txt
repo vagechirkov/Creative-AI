@@ -1,5 +1,5 @@
 boto3
-celery
+celery==5.2.7
 flower
 logzio-python-handler
 Pillow
