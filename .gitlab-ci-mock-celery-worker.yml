@@ -1,0 +1,20 @@
+variables:
+  DEPLOYMENT_VARS: "REDIS_HOST, REDIS_PORT, REDIS_CELERY_DB_INDEX, TASK_QUEUE, LOGZIO_TOKEN, LOGZIO_URL"
+  APP_NAME: creative-ai-mock-celery-worker
+
+include:
+  - project: "mpib/chm/common/deploy-pipeline"
+    ref: "1.5.2"
+    file: "python-app.yml"
+
+init:
+  extends: .init-stage
+  after_script:
+    - echo "Copying files from subdirectory to root directory"
+    - cp -r backend/* ./
+    #  rename the relevant Dockerfile
+    - mv Dockerfile-celery-worker Dockerfile
+    - rm -rf backend
+  artifacts:
+    paths:
+      - ./

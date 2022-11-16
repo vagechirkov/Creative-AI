@@ -12,3 +12,9 @@ flower:
   trigger:
     include: .gitlab-ci-flower.yml
     strategy: depend
+
+mock-celery-worker:
+  stage: start child pipelines
+  trigger:
+    include: .gitlab-ci-mock-celery-worker.yml
+    strategy: depend
