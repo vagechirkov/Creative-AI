@@ -11,6 +11,7 @@ class GeneratedImagesResponse(BaseModel):
     requestId: str
     images: List[Image]
     celery_task_id: Optional[str]
+    user_id: Optional[str]
 
 
 class GenerateImagesRequest(BaseModel):

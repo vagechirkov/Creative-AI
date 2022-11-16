@@ -28,9 +28,9 @@ model = StyleDiffusion()
 
 
 @celery_app.task
-def generate_image(prompt: str, **kwargs) -> Union[List[str], str]:
+def generate_image(**kwargs) -> Union[List[str], str]:
     urls = []
-
+    prompt = kwargs.pop('prompt')
     images = model.generate(prompt, **kwargs)
     for i in images:
         temp_file = BytesIO()
