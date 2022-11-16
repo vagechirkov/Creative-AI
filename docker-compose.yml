@@ -1,38 +1,38 @@
 version: "3"
 services:
-  # no need to run redis locally since we are using the cloud service
-  #  redis:
-  #    image: redis:latest
-  #    container_name: redis
-  #    ports:
-  #      - "6379:6379"
+# no need to run redis locally since we are using the cloud service
+#  redis:
+#    image: redis:latest
+#    container_name: redis
+#    ports:
+#      - "6379:6379"
 
-  #  fastapi:
-  #    build:
-  #      context: ./backend
-  #      dockerfile: Dockerfile-fastapi
-  #    container_name: creative-ai-fastapi
-  #    volumes:
-  #      - ./backend:/fastapi
-  #    ports:
-  #      - '5000:5000'
-  #    env_file:
-  #      - logzio.env
-  #      - redis.env
-  #      - s3.env
-  #    environment:
-  #      - TASK_QUEUE=generate_image
-  #      - PORT=5000
-
-  celery-worker-1:
+  fastapi:
     build:
       context: ./backend
-      dockerfile: Dockerfile-ml-worker
-    container_name: creative-ai-ml-worker-1
+      dockerfile: Dockerfile-fastapi
+    container_name: creative-ai-fastapi
+    volumes:
+      - ./backend:/fastapi
+    ports:
+      - '5000:5000'
+    env_file:
+      - logzio.env
+      - redis.env
+      - s3.env
+    environment:
+      - TASK_QUEUE=generate_image
+      - PORT=5000
+
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-celery-worker
+    container_name: creative-ai-celery-worker-1
     volumes:
       - ./backend/app/celery_worker:/celery_worker
     ports:
-      - "5001:5001"
+      - '5001:5001'
     env_file:
       - logzio.env
       - redis.env
@@ -41,41 +41,21 @@ services:
       - TASK_QUEUE=generate_image
       - PORT=5001
 
-#  celery-worker-2:
-#    build:
-#      context: ./backend
-#      dockerfile: Dockerfile-celery-worker
-#    container_name: creative-ai-celery-worker-2
-#    volumes:
-#      - ./backend/app:/ml_worker
-#    ports:
-#      - '5002:5002'
-#    env_file:
-#      - logzio.env
-#      - redis.env
-#      - s3.env
-#    environment:
-#      - TASK_QUEUE=generate_image
-#      - PORT=5002
-#    depends_on:
-#      - redis
-
-# No need for flower to run locally since we have the dashboard on the cluster
-#  celery-flower:
-#    build:
-#      context: ./backend
-#      dockerfile: Dockerfile-celery-flower
-#    container_name: creative-ai-celery-flower
-#    volumes:
-#      - ./backend/app:/flower
-#    env_file:
-#      - redis.env
-#    environment:•
-#      - PORT=5555
-#      - FLOWER_USER=flower
-#      - FLOWER_PASSWORD=flower
-#    ports:
-#        - '5555:5555'
+  celery-flower:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-celery-flower
+    container_name: creative-ai-celery-flower
+    volumes:
+      - ./backend/app:/flower
+    env_file:
+      - redis.env
+    environment:
+      - PORT=5555
+      - FLOWER_USER=flower
+      - FLOWER_PASSWORD=flower
+    ports:
+        - '5555:5555'
 
 volumes:
   data:
