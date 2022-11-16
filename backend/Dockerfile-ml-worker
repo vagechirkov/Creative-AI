@@ -31,7 +31,7 @@ COPY ./app/config.py ./
 COPY ./app/logging_config.py ./
 
 # remove the mock ml model
-RUN rm -rf ./celery_worker/stable_diffusion.py
+RUN rm -rf ./celery_worker/style_diffusion.py
 
 # Clone stable diffusion model
 RUN git clone https://github.com/bramantyois/sd_art.git
