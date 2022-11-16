@@ -4,3 +4,4 @@ flower
 logzio-python-handler
 Pillow
 redis
+importlib-metadata<5.0

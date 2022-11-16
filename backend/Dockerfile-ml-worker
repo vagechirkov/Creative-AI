@@ -1,9 +1,5 @@
 FROM pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
 
-# Create a virtual environment
-ENV VIRTUAL_ENV=/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # intall git in Docker
 # SEE: https://github.com/NVIDIA/nvidia-docker/issues/1632#issuecomment-1112667716
@@ -13,12 +9,18 @@ RUN rm /etc/apt/sources.list.d/nvidia-ml.list
 RUN apt-get update
 RUN apt-get install -y git
 
+# RUN echo "1"
+# RUN python3 --version
+# RUN python3 -c "import torch; print(torch.cuda.is_available())"
+
 # Celery worker
 COPY ./requirements-celery.txt ./
 
 RUN pip install --upgrade pip
 
 RUN pip install -r requirements-celery.txt
+
+WORKDIR /app
 
 COPY ./app/celery_worker celery_worker
 
@@ -38,5 +40,4 @@ RUN git clone https://github.com/bramantyois/sd_art.git
 RUN cp -r sd_art/src/models/ ./celery_worker
 
 # Run the worker
-# CMD python -c import torch; print(torch.cuda.is_available())
-CMD cd / && python3 --version && python -c "import torch; print(torch.cuda.is_available())" && celery -A celery_worker.tasks worker -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE
+CMD cd /app && python3 --version && python3 -c "import torch; print(torch.cuda.is_available())" && celery -A celery_worker.tasks worker -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE
