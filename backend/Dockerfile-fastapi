@@ -16,6 +16,6 @@ WORKDIR /fastapi/app
 
 ENV PORT 5000
 
-# Sleep 10 seconds to wait for the RabbitMQ container to be ready
-# SEE also: https://docs.docker.com/compose/startup-order/
-CMD sleep 10 && uvicorn main:app --host 0.0.0.0 --port $PORT --reload
+# SEE: https://github.com/encode/starlette/issues/538#issuecomment-518748568
+# about the --proxy-headers flag
+CMD uvicorn main:app --host 0.0.0.0 --port $PORT --reload --proxy-headers
