@@ -3,13 +3,20 @@ import random
 from PIL import Image
 
 
-class StableDiffusion:
+class StyleDiffusion:
     def __init__(self):
         # download weights if not available
         # load models
         pass
 
-    def generate(self, prompt: str):
+    def generate(
+            self,
+            prompt: str,
+            vector=None,
+            guidance_scale=7.5,
+            inference_steps=50,
+            num_images=1,
+            seed=-1):
         # generate images
 
         img = Image.new('RGB', [500, 500], 255)
