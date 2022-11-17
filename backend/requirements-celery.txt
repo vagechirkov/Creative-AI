@@ -1,7 +1,7 @@
 Pillow
 boto3
-celery==5.2.3
+celery
 flower
-importlib-metadata==4.13.0
+importlib-metadata<5.0.0
 logzio-python-handler
 redis
