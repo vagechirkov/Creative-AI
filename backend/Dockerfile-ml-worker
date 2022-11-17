@@ -1,17 +1,12 @@
-FROM pytorch/pytorch:1.9.0-cuda10.2-cudnn7-devel
-
+FROM pytorch/pytorch:1.13.0-cuda11.6-cudnn8-runtime
 
 # intall git in Docker
 # SEE: https://github.com/NVIDIA/nvidia-docker/issues/1632#issuecomment-1112667716
-RUN rm /etc/apt/sources.list.d/cuda.list
-RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+# RUN rm /etc/apt/sources.list.d/cuda.list
+# RUN rm /etc/apt/sources.list.d/nvidia-ml.list
 
 RUN apt-get update
 RUN apt-get install -y git
-
-# RUN echo "1"
-# RUN python3 --version
-# RUN python3 -c "import torch; print(torch.cuda.is_available())"
 
 # Celery worker
 COPY ./requirements-celery.txt ./
@@ -33,11 +28,18 @@ COPY ./app/logging_config.py ./
 # remove the mock ml model
 RUN rm -rf ./celery_worker/style_diffusion.py
 
+RUN echo "2"
 # Clone stable diffusion model
 RUN git clone https://github.com/bramantyois/sd_art.git
 
+
+RUN pip install -r sd_art/requirement.txt
+# RUN pip install diffusers==0.3.0 transformers tqdm numpy scipy
+RUN pip install diffusers==0.6.0
+
 # copy the model to the worker folder
-RUN cp -r sd_art/src/models/ ./celery_worker
+RUN cp -r sd_art/src/models/style_diffusion.py ./celery_worker
 
 # Run the worker
-CMD cd /app && python3 --version && python3 -c "import torch; print(torch.cuda.is_available())" && celery -A celery_worker.tasks worker -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE
+# CMD python -c "import torch; torch.autocast(device_type='cpu')"
+CMD cd /app && python3 --version && celery -A celery_worker.tasks worker  -P solo -n $WORKER_NAME --loglevel=info -Q $TASK_QUEUE
