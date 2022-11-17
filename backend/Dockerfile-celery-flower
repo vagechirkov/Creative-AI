@@ -1,6 +1,6 @@
 FROM python:3.9-slim-buster
 
-COPY ./requirements-celery.txt ./
+COPY ./requirements-celery-flower.txt ./
 
 # Create a virtual environment
 ENV VIRTUAL_ENV=/venv
@@ -9,7 +9,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN pip install --upgrade pip
 
-RUN pip install -r requirements-celery.txt
+RUN pip install -r requirements-celery-flower.txt
 
 COPY ./app/celery_worker ./celery_worker
 
@@ -19,4 +19,5 @@ COPY ./app/config.py ./
 
 COPY app/logging_config.py ./
 
-CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX} --port=${PORT} --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD} -Q ${TASK_QUEUE}
+# --purge_offline_workers: Time (in seconds) after which offline workers are automatically removed from dashboard.
+CMD celery -A celery_worker.tasks flower --broker=redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_CELERY_DB_INDEX} --port=${PORT} --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD} -Q ${TASK_QUEUE} --purge_offline_workers=600

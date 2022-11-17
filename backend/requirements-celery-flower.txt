@@ -1,0 +1,6 @@
+Pillow
+boto3
+celery
+flower
+logzio-python-handler
+redis
