@@ -1,10 +1,10 @@
 Jinja2
 Pillow
 boto3
-celery==5.2.3
+celery
 fastapi==0.85.1
 httpx
-importlib-metadata==4.13.0
+importlib-metadata<5.0.0
 logzio-python-handler
 pydantic
 redis
