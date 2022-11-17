@@ -2,8 +2,7 @@
 
 ## Deployment
 
-- Frontend URL:  [https://creative-ai-fastapi.eks-test-default.mpg-chm.com](https://creative-ai-fastapi.eks-test-default.mpg-chm.com)
-- Flower URL:  [https://creative-ai-flower.eks-test-default.mpg-chm.com](https://creative-ai-flower.eks-test-default.mpg-chm.com/)
+- Flower URL: [https://creative-ai-flower.eks-test-default.mpg-chm.com](https://creative-ai-flower.eks-test-default.mpg-chm.com/)
 
 ⚠️NOTE: You need the worker running to test a task.
 
@@ -15,16 +14,21 @@ First you need to set up three dotenv files:
 
 `redis.env`:
 
-    REDIS_HOST=redis
-    REDIS_PORT=6379
-    REDIS_CELERY_DB_INDEX=10
-    REDIS_STORE_DB_INDEX=0
+    REDIS_HOST=<your redis host>
+    REDIS_PORT=<your redis port>
+    REDIS_CELERY_DB_INDEX=<your redis db index>
+    REDIS_STORE_DB_INDEX=<your redis db index (typically 0)>
 
 `logzio.env`:
 
-    LOGZIO_TOKEN=YOUR_LOGZIO_TOKEN
+    LOGZIO_TOKEN=<your logzio token>
     LOGZIO_URL=listener.logz.io
 
+`se.env`:
+    S3_ACCESS_KEY_ID=<your access key>
+    S3_SECRET_ACCESS_KEY=<your secret key>
+    S3_ROLE_ARN=<your role arn>
+    S3_BUCKET_NAME=<your bucket name>
 
 These files are used by docker-compose to set up the Docker environments.
 
@@ -40,11 +44,6 @@ After starting the docker-compose, you can access the following services HTTP en
 - `fastapi` Frontend: [http://localhost:5000/](http://localhost:5000/)
 - `fastapi` Swagger UI: [http://localhost:5000/docs](http://localhost:5000/docs)
 - `celery.flower` Celery flower dashboard: [http://localhost:5555/dashboard](http://localhost:5555/dashboard)
-
-
-Now if you open frontend in your browser, you should see the following page:
-
-![Frontend](docs/frontend.png)
 
 
 ### Local development Python environment
